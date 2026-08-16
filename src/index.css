@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --tabby-green: #3BFF92;
+  --tabby-dark-green: #00D68F;
+  --tamara-purple: #9E00FF;
+  --tamara-orange: #FF5C00;
+  --tamara-pink: #FF007A;
+}
+
+body {
+  margin: 0;
+  font-family: 'Cairo', 'Plus Jakarta Sans', sans-serif;
+  background-color: #030712;
+  color: #f8fafc;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+}
+
+/* Tabby Theme Glow & Card */
+.tabby-badge {
+  background: linear-gradient(135deg, rgba(59, 255, 146, 0.15) 0%, rgba(0, 214, 143, 0.25) 100%);
+  border: 1px solid rgba(59, 255, 146, 0.4);
+  color: #3BFF92;
+}
+
+.tabby-btn {
+  background: linear-gradient(135deg, #3BFF92 0%, #00D68F 100%);
+  color: #030712;
+  font-weight: 700;
+  box-shadow: 0 0 20px rgba(59, 255, 146, 0.3);
+  transition: all 0.3s ease;
+}
+
+.tabby-btn:hover {
+  box-shadow: 0 0 30px rgba(59, 255, 146, 0.5);
+  transform: scale(1.02);
+}
+
+/* Tamara Theme Glow & Card */
+.tamara-badge {
+  background: linear-gradient(135deg, rgba(255, 92, 0, 0.15) 0%, rgba(158, 0, 255, 0.25) 100%);
+  border: 1px solid rgba(255, 92, 0, 0.4);
+  color: #FF7E36;
+}
+
+.tamara-btn {
+  background: linear-gradient(135deg, #FF5C00 0%, #9E00FF 100%);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 0 20px rgba(255, 92, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.tamara-btn:hover {
+  box-shadow: 0 0 30px rgba(158, 0, 255, 0.5);
+  transform: scale(1.02);
+}
+
+/* Custom Animations */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+.pulse-glow {
+  animation: pulseGlow 4s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #090d16;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
