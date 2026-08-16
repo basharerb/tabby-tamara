@@ -6,9 +6,10 @@ import { StoreSection } from './components/StoreSection';
 import { PaymentModal } from './components/PaymentModal';
 import { MerchantDashboard } from './components/MerchantDashboard';
 import { DevPortal } from './components/DevPortal';
+import { AccountantCalculator } from './components/AccountantCalculator';
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<'store' | 'simulator' | 'dashboard' | 'devportal'>('store');
+  const [activeTab, setActiveTab] = useState<'store' | 'simulator' | 'dashboard' | 'devportal' | 'accountant'>('accountant');
   const [checkoutState, setCheckoutState] = useState<CheckoutState>({
     isOpen: false,
     product: null,
@@ -43,6 +44,10 @@ export function App() {
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        {activeTab === 'accountant' && (
+          <AccountantCalculator />
+        )}
+
         {activeTab === 'store' && (
           <StoreSection onOpenCheckout={handleOpenCheckout} />
         )}
