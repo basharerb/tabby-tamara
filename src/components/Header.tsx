@@ -1,9 +1,9 @@
 import React from 'react';
-import { ShoppingBag, CreditCard, LayoutDashboard, Code, Sparkles, Calculator } from 'lucide-react';
+import { ShoppingBag, CreditCard, LayoutDashboard, Code, Sparkles, Calculator, Database } from 'lucide-react';
 
 interface HeaderProps {
-  activeTab: 'store' | 'simulator' | 'dashboard' | 'devportal' | 'accountant';
-  setActiveTab: (tab: 'store' | 'simulator' | 'dashboard' | 'devportal' | 'accountant') => void;
+  activeTab: 'system' | 'accountant' | 'store' | 'simulator' | 'dashboard' | 'devportal';
+  setActiveTab: (tab: 'system' | 'accountant' | 'store' | 'simulator' | 'dashboard' | 'devportal') => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
@@ -26,7 +26,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
             </div>
             <div className="hidden md:flex items-center gap-2 border-r border-slate-800 pr-4 mr-2">
               <span className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-300">
-                <Sparkles className="w-3 h-3 text-amber-400" /> بوابات التقسيط والعمولات المحاسبية
+                <Sparkles className="w-3 h-3 text-amber-400" /> النظام المحاسبي الشامل للتسويات
               </span>
             </div>
           </div>
@@ -35,15 +35,27 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
           <nav className="hidden lg:flex items-center gap-1.5 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800">
             
             <button
-              onClick={() => setActiveTab('accountant')}
+              onClick={() => setActiveTab('system')}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                activeTab === 'accountant'
-                  ? 'bg-emerald-500 text-slate-950 shadow-md font-black'
+                activeTab === 'system'
+                  ? 'bg-emerald-400 text-slate-950 shadow-md font-black'
                   : 'text-emerald-400 hover:bg-emerald-950/40 border border-emerald-500/30'
               }`}
             >
-              <Calculator className="w-4 h-4" />
-              حاسبة المحاسبين والقيود المزدوجة 🧮
+              <Database className="w-4 h-4" />
+              النظام المحاسبي والتسويات (ERP System) 🏢
+            </button>
+
+            <button
+              onClick={() => setActiveTab('accountant')}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                activeTab === 'accountant'
+                  ? 'bg-slate-800 text-white shadow-md border border-slate-700'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+              }`}
+            >
+              <Calculator className="w-4 h-4 text-emerald-400" />
+              حاسبة القيود
             </button>
 
             <button
@@ -108,12 +120,20 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
         {/* Mobile Navigation */}
         <div className="lg:hidden flex items-center justify-around py-3 border-t border-slate-800 overflow-x-auto gap-2">
           <button
-            onClick={() => setActiveTab('accountant')}
+            onClick={() => setActiveTab('system')}
             className={`text-xs px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 whitespace-nowrap ${
-              activeTab === 'accountant' ? 'bg-emerald-400 text-slate-950 font-black' : 'text-emerald-400'
+              activeTab === 'system' ? 'bg-emerald-400 text-slate-950 font-black' : 'text-emerald-400'
             }`}
           >
-            <Calculator className="w-3.5 h-3.5" /> المحاسبين
+            <Database className="w-3.5 h-3.5" /> النظام المحاسبي
+          </button>
+          <button
+            onClick={() => setActiveTab('accountant')}
+            className={`text-xs px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1 whitespace-nowrap ${
+              activeTab === 'accountant' ? 'bg-slate-800 text-white' : 'text-slate-400'
+            }`}
+          >
+            <Calculator className="w-3.5 h-3.5" /> القيود
           </button>
           <button
             onClick={() => setActiveTab('store')}
@@ -122,22 +142,6 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
             }`}
           >
             <ShoppingBag className="w-3.5 h-3.5" /> المتجر
-          </button>
-          <button
-            onClick={() => setActiveTab('simulator')}
-            className={`text-xs px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1 whitespace-nowrap ${
-              activeTab === 'simulator' ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30' : 'text-slate-400'
-            }`}
-          >
-            <CreditCard className="w-3.5 h-3.5" /> الدفع
-          </button>
-          <button
-            onClick={() => setActiveTab('dashboard')}
-            className={`text-xs px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1 whitespace-nowrap ${
-              activeTab === 'dashboard' ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30' : 'text-slate-400'
-            }`}
-          >
-            <LayoutDashboard className="w-3.5 h-3.5" /> التجار
           </button>
         </div>
 

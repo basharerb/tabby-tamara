@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Product, PaymentProvider } from '../types';
+import { Product, PaymentFilter } from '../types';
 import { TabbyWidget } from './TabbyWidget';
 import { TamaraWidget } from './TamaraWidget';
 import { ShoppingCart, Star, Zap, Filter, Sparkles, Check, ArrowRight } from 'lucide-react';
@@ -90,7 +90,7 @@ const SAMPLE_PRODUCTS: Product[] = [
 
 export const StoreSection: React.FC<StoreSectionProps> = ({ onOpenCheckout }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [activeProviderFilter, setActiveProviderFilter] = useState<PaymentProvider>('all');
+  const [activeProviderFilter, setActiveProviderFilter] = useState<PaymentFilter>('all');
 
   const categories = ['all', 'أجهزة منزلية وإلكترونيات', 'جوالات وهواتف', 'كمبيوتر ولابتوب', 'ألعاب ترفيهية'];
 
