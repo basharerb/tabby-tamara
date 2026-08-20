@@ -94,7 +94,7 @@ export const RakeezApp: React.FC = () => {
       }
     };
 
-    // 3. فحص دوري دقيق كل 3 ثوانٍ لمعرفة هل مر 5 دقائق من الخمول أو الخروج
+    // 3. فحص دوري دقيق كل 3 ثوانٍ لمعرفة هل مر 3 دقائق من الخمول أو الخروج
     const interval = setInterval(() => {
       if (checkShouldLock()) {
         setIsLocked(true);
