@@ -30,12 +30,13 @@ import {
 export const RakeezApp: React.FC = () => {
   const isLoginPagePath = typeof window !== 'undefined' && window.location.pathname.includes('admin-login');
   
+  // Default session active so user enters directly into Rakeez ERP Accounting system
   const [authSession, setAuthSession] = useState<{ username: string; role: string } | null>(() => {
     const saved = localStorage.getItem('rakeez_auth_session');
     if (saved) {
-      try { return JSON.parse(saved); } catch { return null; }
+      try { return JSON.parse(saved); } catch { }
     }
-    return null;
+    return { username: 'admin', role: 'المسؤول الرئيسي' };
   });
 
   const [activeTab, setActiveTab] = useState<string>('dashboard');
@@ -129,10 +130,8 @@ export const RakeezApp: React.FC = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('rakeez_auth_session');
-    setAuthSession(null);
-    if (typeof window !== 'undefined' && !window.location.pathname.includes('admin-login')) {
-      window.history.pushState({}, '', '/admin-login');
-    }
+    lockAppImmediately();
+    setIsLocked(true);
   };
 
   const handleLoginSuccess = (user: string) => {
@@ -144,9 +143,11 @@ export const RakeezApp: React.FC = () => {
     }
   };
 
-  if (isLoginPagePath || !authSession) {
+  if (isLoginPagePath && !authSession) {
     return <AdminLoginView onLoginSuccess={handleLoginSuccess} />;
   }
+
+  const currentUsername = authSession ? authSession.username : 'admin';
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 p-4 sm:p-8 font-sans selection:bg-amber-500 selection:text-slate-950 dir-rtl">
@@ -163,7 +164,7 @@ export const RakeezApp: React.FC = () => {
           }}
           onResetData={handleReset}
           onLogout={handleLogout}
-          username={authSession.username}
+          username={currentUsername}
         />
 
         {/* MAIN BODY: SIDEBAR + CONTENT */}
