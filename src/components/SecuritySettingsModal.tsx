@@ -129,7 +129,7 @@ export const SecuritySettingsModal: React.FC<SecuritySettingsModalProps> = ({ on
             <Clock className="w-4 h-4 text-emerald-400" /> مهلة القفل بعد الخروج من التطبيق:
           </label>
           <div className="grid grid-cols-4 gap-2 text-xs">
-            {[1, 5, 10, 15].map((mins) => (
+            {[1, 3, 5, 10].map((mins) => (
               <button
                 key={mins}
                 onClick={() => handleSaveTimeout(mins)}

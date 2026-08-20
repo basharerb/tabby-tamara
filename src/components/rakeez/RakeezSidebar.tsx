@@ -107,7 +107,7 @@ export const RakeezSidebar: React.FC<RakeezSidebarProps> = ({
         </div>
         <div className="text-xs font-bold text-white">نظام أمان الركيز 🛡️</div>
         <div className="text-[10px] text-slate-400 leading-relaxed">
-          قفل وخروج تلقائي فور الخمول لمدة 5 دقائق لضمان سرية الحسابات
+          قفل وخروج تلقائي فور الخمول لمدة 3 دقائق لضمان سرية الحسابات
         </div>
         
         {onLogout && (

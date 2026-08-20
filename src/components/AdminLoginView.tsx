@@ -92,7 +92,7 @@ export const AdminLoginView: React.FC<AdminLoginViewProps> = ({ onLoginSuccess }
               الركيز RAKEEZ ERP v2.0
             </span>
             <span className="px-2.5 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30 text-xs">
-              أمان 5 دقائق 🔐
+              أمان 3 دقائق 🔐
             </span>
           </div>
 
@@ -215,7 +215,7 @@ export const AdminLoginView: React.FC<AdminLoginViewProps> = ({ onLoginSuccess }
         <div className="text-center text-[11px] text-slate-500 space-y-1">
           <div className="flex items-center justify-center gap-1.5 text-slate-400 font-medium">
             <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span>نظام الركيز المتكامل © 2026 - مزود بنظام أمان 5 دقائق تلقائي</span>
+            <span>نظام الركيز المتكامل © 2026 - مزود بنظام أمان 3 دقائق تلقائي</span>
           </div>
         </div>
 

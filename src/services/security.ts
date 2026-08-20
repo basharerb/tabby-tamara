@@ -7,12 +7,12 @@ export interface SecurityConfig {
   isLocked: boolean;
 }
 
-const SECURITY_STORAGE_KEY = 'rakeez_erp_security_config_v2';
+const SECURITY_STORAGE_KEY = 'rakeez_erp_security_config_v3';
 
 const DEFAULT_CONFIG: SecurityConfig = {
   enabled: true,
   pin: '1234',
-  timeoutMinutes: 5,
+  timeoutMinutes: 3,
   lastExitTimestamp: null,
   lastActivityTimestamp: Date.now(),
   isLocked: false
@@ -25,7 +25,8 @@ export function getSecurityConfig(): SecurityConfig {
     return DEFAULT_CONFIG;
   }
   try {
-    return { ...DEFAULT_CONFIG, ...JSON.parse(data) };
+    const parsed = JSON.parse(data);
+    return { ...DEFAULT_CONFIG, ...parsed, timeoutMinutes: 3 };
   } catch (e) {
     return DEFAULT_CONFIG;
   }
@@ -67,7 +68,7 @@ export function recordExitTime(): void {
 }
 
 /**
- * فحص ما إذا كانت مدة الخمول أو مغادرة الصفحة تجاوزت 5 دقائق
+ * فحص ما إذا كانت مدة الخمول أو مغادرة الصفحة تجاوزت 3 دقائق
  */
 export function checkShouldLock(): boolean {
   const config = getSecurityConfig();
@@ -76,7 +77,7 @@ export function checkShouldLock(): boolean {
   if (config.isLocked) return true;
 
   const now = Date.now();
-  const timeoutMs = config.timeoutMinutes * 60 * 1000;
+  const timeoutMs = (config.timeoutMinutes || 3) * 60 * 1000;
 
   // 1. فحص زمن مغادرة الصفحة
   if (config.lastExitTimestamp) {

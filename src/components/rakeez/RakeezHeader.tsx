@@ -78,9 +78,9 @@ export const RakeezHeader: React.FC<RakeezHeaderProps> = ({
           <button
             onClick={onOpenSecurity}
             className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-slate-300 flex items-center gap-1.5 transition-colors cursor-pointer"
-            title="إعدادات حماية الخروج برمز الدخول (5 دقائق)"
+            title="إعدادات حماية الخروج برمز الدخول (3 دقائق)"
           >
-            <Shield className="w-3.5 h-3.5 text-emerald-400" /> حماية 5 دقائق
+            <Shield className="w-3.5 h-3.5 text-emerald-400" /> حماية 3 دقائق
           </button>
 
           <button
