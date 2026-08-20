@@ -15,8 +15,15 @@ import {
   Receipt,
   Calculator,
   Percent,
-  Sparkles
+  Sparkles,
+  Shield,
+  Lock,
+  Zap
 } from 'lucide-react';
+import { LockScreen } from './components/LockScreen';
+import { SecuritySettingsModal } from './components/SecuritySettingsModal';
+import { FocusModeModal } from './components/FocusModeModal';
+import { recordExitTime, checkShouldLock, lockAppImmediately } from './services/security';
 
 export const SalesMonitorApp: React.FC = () => {
   const [sales, setSales] = useState<SaleOrder[]>([]);
@@ -41,6 +48,13 @@ export const SalesMonitorApp: React.FC = () => {
   const [tamaraFixed, setTamaraFixed] = useState<number>(1.5);
   const [showSettings, setShowSettings] = useState(false);
 
+  // Security & Lock Screen State
+  const [isLocked, setIsLocked] = useState<boolean>(() => checkShouldLock());
+  const [showSecuritySettings, setShowSecuritySettings] = useState<boolean>(false);
+
+  // Focus Mode State
+  const [showFocusMode, setShowFocusMode] = useState<boolean>(false);
+
   // New Sale Form State
   const [orderNum, setOrderNum] = useState(`INV-${Math.floor(1000 + Math.random() * 9000)}`);
   const [customerName, setCustomerName] = useState('');
@@ -59,6 +73,51 @@ export const SalesMonitorApp: React.FC = () => {
 
   useEffect(() => {
     refresh();
+
+    // تتبع الخروج والعودة للتطبيق (5 دقائق)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        recordExitTime();
+      } else if (document.visibilityState === 'visible') {
+        if (checkShouldLock()) {
+          setIsLocked(true);
+        }
+      }
+    };
+
+    const handlePageHide = () => {
+      recordExitTime();
+    };
+
+    const handleBlur = () => {
+      recordExitTime();
+    };
+
+    const handleFocus = () => {
+      if (checkShouldLock()) {
+        setIsLocked(true);
+      }
+    };
+
+    // فحص دوري كأمان إضافي كل 5 ثوانٍ
+    const interval = setInterval(() => {
+      if (checkShouldLock()) {
+        setIsLocked(true);
+      }
+    }, 5000);
+
+    window.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('pagehide', handlePageHide);
+    window.addEventListener('blur', handleBlur);
+    window.addEventListener('focus', handleFocus);
+
+    return () => {
+      window.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('pagehide', handlePageHide);
+      window.removeEventListener('blur', handleBlur);
+      window.removeEventListener('focus', handleFocus);
+      clearInterval(interval);
+    };
   }, []);
 
   // Live fee preview for form
@@ -150,7 +209,31 @@ export const SalesMonitorApp: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <button 
+              onClick={() => setShowFocusMode(true)}
+              className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 border border-amber-500/40 text-xs font-black text-amber-300 flex items-center gap-1.5 cursor-pointer shadow-lg shadow-amber-500/10"
+              title="تفعيل وضع التركيز السريع خالي من المشتتات"
+            >
+              <Zap className="w-3.5 h-3.5 text-amber-400 animate-pulse" /> نظام التركيز ⚡
+            </button>
+            <button 
+              onClick={() => setShowSecuritySettings(true)}
+              className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-slate-300 flex items-center gap-1.5 cursor-pointer"
+              title="إعدادات الأمان وقفل 5 دقائق"
+            >
+              <Shield className="w-3.5 h-3.5 text-emerald-400" /> إعدادات الأمان
+            </button>
+            <button 
+              onClick={() => {
+                lockAppImmediately();
+                setIsLocked(true);
+              }}
+              className="px-3.5 py-2 rounded-xl bg-red-950/60 hover:bg-red-900/60 border border-red-500/30 text-xs font-bold text-red-300 flex items-center gap-1.5 cursor-pointer"
+              title="قفل النظام فوراً"
+            >
+              <Lock className="w-3.5 h-3.5 text-red-400" /> قفل النظام
+            </button>
             <button 
               onClick={() => setShowSettings(!showSettings)}
               className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-slate-300 flex items-center gap-1.5 cursor-pointer"
@@ -513,6 +596,34 @@ export const SalesMonitorApp: React.FC = () => {
         </footer>
 
       </div>
+
+      {/* LOCK SCREEN OVERLAY */}
+      {isLocked && (
+        <LockScreen onUnlocked={() => setIsLocked(false)} />
+      )}
+
+      {/* SECURITY SETTINGS MODAL */}
+      {showSecuritySettings && (
+        <SecuritySettingsModal
+          onClose={() => setShowSecuritySettings(false)}
+          onLockNow={() => {
+            lockAppImmediately();
+            setIsLocked(true);
+          }}
+        />
+      )}
+
+      {/* FOCUS MODE MODAL */}
+      {showFocusMode && (
+        <FocusModeModal
+          onClose={() => setShowFocusMode(false)}
+          onSaleAdded={refresh}
+          tabbyRate={tabbyRate}
+          tabbyFixed={tabbyFixed}
+          tamaraRate={tamaraRate}
+          tamaraFixed={tamaraFixed}
+        />
+      )}
     </div>
   );
 };

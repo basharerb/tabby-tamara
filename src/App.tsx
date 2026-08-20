@@ -1,8 +1,8 @@
 import React from 'react';
-import { SalesMonitorApp } from './SalesMonitorApp';
+import { RakeezApp } from './RakeezApp';
 
 export function App() {
-  return <SalesMonitorApp />;
+  return <RakeezApp />;
 }
 
 export default App;
