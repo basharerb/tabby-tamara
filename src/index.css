@@ -5,11 +5,9 @@
 @tailwind utilities;
 
 :root {
-  --tabby-green: #3BFF92;
-  --tabby-dark-green: #00D68F;
-  --tamara-purple: #9E00FF;
-  --tamara-orange: #FF5C00;
-  --tamara-pink: #FF007A;
+  --rakeez-amber: #f59e0b;
+  --rakeez-emerald: #10b981;
+  --rakeez-gold: #d97706;
 }
 
 body {
@@ -22,7 +20,7 @@ body {
 
 /* Glassmorphism utility */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.7);
+  background: rgba(15, 23, 42, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -33,48 +31,28 @@ body {
 }
 
 .glass-panel-hover:hover {
-  background: rgba(30, 41, 59, 0.8);
-  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(30, 41, 59, 0.85);
+  border-color: rgba(245, 158, 11, 0.2);
   transform: translateY(-2px);
 }
 
-/* Tabby Theme Glow & Card */
-.tabby-badge {
-  background: linear-gradient(135deg, rgba(59, 255, 146, 0.15) 0%, rgba(0, 214, 143, 0.25) 100%);
-  border: 1px solid rgba(59, 255, 146, 0.4);
-  color: #3BFF92;
+/* Rakeez ERP Theme Glow & Card */
+.rakeez-badge {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(16, 185, 129, 0.25) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #f59e0b;
 }
 
-.tabby-btn {
-  background: linear-gradient(135deg, #3BFF92 0%, #00D68F 100%);
+.rakeez-btn {
+  background: linear-gradient(135deg, #f59e0b 0%, #10b981 100%);
   color: #030712;
-  font-weight: 700;
-  box-shadow: 0 0 20px rgba(59, 255, 146, 0.3);
+  font-weight: 800;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
   transition: all 0.3s ease;
 }
 
-.tabby-btn:hover {
-  box-shadow: 0 0 30px rgba(59, 255, 146, 0.5);
-  transform: scale(1.02);
-}
-
-/* Tamara Theme Glow & Card */
-.tamara-badge {
-  background: linear-gradient(135deg, rgba(255, 92, 0, 0.15) 0%, rgba(158, 0, 255, 0.25) 100%);
-  border: 1px solid rgba(255, 92, 0, 0.4);
-  color: #FF7E36;
-}
-
-.tamara-btn {
-  background: linear-gradient(135deg, #FF5C00 0%, #9E00FF 100%);
-  color: #ffffff;
-  font-weight: 700;
-  box-shadow: 0 0 20px rgba(255, 92, 0, 0.3);
-  transition: all 0.3s ease;
-}
-
-.tamara-btn:hover {
-  box-shadow: 0 0 30px rgba(158, 0, 255, 0.5);
+.rakeez-btn:hover {
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.5);
   transform: scale(1.02);
 }
 

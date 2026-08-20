@@ -10,14 +10,10 @@ export default {
         sans: ['Cairo', 'Plus Jakarta Sans', 'sans-serif'],
       },
       colors: {
-        tabby: {
-          green: '#3BFF92',
-          dark: '#00D68F',
-        },
-        tamara: {
-          purple: '#9E00FF',
-          orange: '#FF5C00',
-          pink: '#FF007A',
+        rakeez: {
+          amber: '#f59e0b',
+          emerald: '#10b981',
+          gold: '#d97706',
         }
       }
     },
